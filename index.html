@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ネット</title>
+  <style>
+    body {
+      background: #111;
+      color: #f00;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .word {
+      position: absolute;
+      font-size: 16px;
+      white-space: nowrap;
+      opacity: 0.85;
+      pointer-events: none;
+      animation: fadeIn 1s ease forwards;
+      text-shadow: 0 0 4px black;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  const subjects = [
+    "お前", "あいつ", "こいつ", "おまえさ", "その顔", "頭", "発言", "存在", "考え方", "生き方",
+    "コメント", "態度", "ノリ", "ツラ", "リアル", "人生", "中身", "知能", "感性", "主張"
+  ];
+
+  const verbs = [
+    "マジで", "ほんと", "どう考えても", "普通に", "ガチで", "割と", "正直", "冷静に", "客観的に", "本音で言うと",
+    "冗談抜きで", "100％", "率直に言って", "素直に言って", "今すぐ", "二度と", "一回", "永遠に", "真顔で", "なんとなく"
+  ];
+
+  const insults = [
+    "終わってる", "無理", "クソ", "キモすぎ", "ウザい", "黙れ", "消えろ", "頭悪い", "低レベル", "やばすぎ",
+    "恥ずかしい", "意味不明", "痛い", "つまらん", "見苦しい", "存在価値ない", "ゴミ", "滑ってる", "不快", "論外",
+    "バカ", "中学生かよ", "精神年齢低すぎ", "発達か？", "社会不適合者", "小学生並み", "なにそれ", "誰得", "甘えすぎ", "見てられない"
+  ];
+
+  function getRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function createWord() {
+    const word = document.createElement('div');
+    word.className = 'word';
+    word.textContent = `${getRandom(subjects)} ${getRandom(verbs)} ${getRandom(insults)}`;
+
+    word.style.left = `${Math.random() * 100}%`;
+    word.style.top = `${Math.random() * 100}%`;
+    word.style.fontSize = `${12 + Math.random() * 24}px`;
+    word.style.color = `hsl(${Math.random() * 20}, 100%, 60%)`;
+
+    document.body.appendChild(word);
+
+    setTimeout(() => {
+      word.remove();
+    }, 15000); // 長めに残す
+  }
+
+  setInterval(createWord, 80); // 80ms間隔でどんどん表示
+</script>
+
+</body>
+</html>
