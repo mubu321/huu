@@ -12,11 +12,11 @@
       margin: 0;
       height: 100vh;
       overflow-y: scroll;
-      transition: background-color 1s linear;
     }
     #container {
       white-space: pre-wrap;
-      line-height: 1.5;
+      line-height: 2;
+      font-size: 24px; /* ← 大きくした */
     }
   </style>
 </head>
@@ -41,18 +41,11 @@
 
     const container = document.getElementById("container");
 
-    let interval = 1000;        // スタートはゆっくり（1秒）
-    const acceleration = 0.98;  // 徐々に速く（2%ずつ短く）
-    let hue = 0;                // 背景の赤味のコントロール用
+    let interval = 800; // ← ゆっくり始める
+    const acceleration = 0.97; // 徐々に速く（でも穏やかに）
 
     function getRandom(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    function updateBackground() {
-      // 背景色を徐々に赤くしていく（hslベース）
-      hue = Math.min(hue + 1, 100);  // 0〜100まで上昇
-      document.body.style.backgroundColor = `hsl(0, 100%, ${10 + hue / 2}%)`;
     }
 
     function addLine() {
@@ -62,13 +55,11 @@
       container.appendChild(line);
       window.scrollTo(0, document.body.scrollHeight);
 
-      updateBackground();
-
       interval *= acceleration;
-      setTimeout(addLine, Math.max(interval, 100)); // 最低でも100msまで
+      setTimeout(addLine, Math.max(interval, 50)); // 最小50msで制限
     }
 
-    addLine(); // スタート
+    addLine();
   </script>
 </body>
 </html>
