@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>ネットの風刺</title>
+  <title>ネット</title>
   <style>
     body {
       background: #111;
@@ -24,32 +24,42 @@
 
   <script>
     const subjects = [
-      "お前", "あいつ", "発言", "顔", "態度", "そのノリ", "ツラ", "言葉遣い", "知能", "存在"
+      "お前", "あいつ", "その顔", "態度", "言動", "思考", "発言", "知能", "存在", "人生",
+      "主張", "コメント", "声", "名前", "価値観", "行動", "自信", "自我", "目線", "センス"
     ];
 
     const verbs = [
-      "マジで", "本気で", "ほんとに", "どう考えても", "率直に", "100％", "普通に", "客観的に"
+      "マジで", "ほんとに", "どう考えても", "普通に", "客観的に", "本音で言って", "冷静に見て", "冗談抜きで",
+      "ガチで", "素直に", "今すぐ", "真顔で", "全力で", "割と", "永遠に", "一生", "なぜか", "やっぱり", "正直"
     ];
 
     const insults = [
-      "終わってる", "無理", "痛すぎ", "きもい", "滑ってる", "話にならない", "黙れ", "ゴミ", "小学生レベル", "草"
+      "終わってる", "無理", "キモすぎ", "黙れ", "消えろ", "ゴミ", "話にならない", "やばい", "見てられない", "痛すぎ",
+      "小学生レベル", "草", "笑える", "誰得", "意味不明", "空気読め", "頭悪い", "知能低い", "センスない", "地獄"
     ];
+
+    const container = document.getElementById("container");
+
+    let interval = 500; // 初期スピード（ms）
+    const acceleration = 0.95; // スピードを徐々に速く（5%ずつ短く）
 
     function getRandom(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
-
-    const container = document.getElementById("container");
 
     function addLine() {
       const text = `${getRandom(subjects)} ${getRandom(verbs)} ${getRandom(insults)}`;
       const line = document.createElement("div");
       line.textContent = text;
       container.appendChild(line);
-      window.scrollTo(0, document.body.scrollHeight); // 下にスクロール
+      window.scrollTo(0, document.body.scrollHeight);
+
+      // 次回を少し速く
+      interval *= acceleration;
+      setTimeout(addLine, Math.max(interval, 20)); // 最小20msまで加速
     }
 
-    setInterval(addLine, 200); // 0.2秒ごとに1行追加
+    addLine(); // 最初の呼び出し
   </script>
 </body>
 </html>
